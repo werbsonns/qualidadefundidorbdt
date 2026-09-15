@@ -75,6 +75,9 @@ tr.rt td:last-child{background:#d1fae5}
 .z{color:#a0aec0}.rt{background:#f1f5f9;font-weight:700}
 .footer{text-align:center;padding:1.1rem;font-size:.78rem;color:var(--m)}
 .note{font-size:.72rem;color:var(--m);margin-top:.4rem}
+.meta-ok{background:#d1fae5!important;color:#065f46;font-weight:700}
+.meta-bad{background:#fee2e2!important;color:#991b1b;font-weight:700}
+
 @media(max-width:600px){
   .kpi-grid{grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:.45rem}
   .kpi .v{font-size:1.05rem}
@@ -158,7 +161,7 @@ const common={responsive:true,maintainAspectRatio:false,plugins:{legend:{positio
 function topDef(defs){const e=Object.entries(defs||{});return e.length?{code:e[0][0],total:e[0][1].total}:{code:'—',total:0}}
 function kill(id){if(charts[id]){charts[id].destroy();delete charts[id]}}
 function barMeta(canvasId,data,meta,color,metaLabel){kill(canvasId);charts[canvasId]=new Chart(document.getElementById(canvasId),{type:'bar',data:{labels,datasets:[{label:'Realizado',data,backgroundColor:color,borderRadius:4},{label:metaLabel,data:meta,type:'line',borderColor:'#475569',borderWidth:2.5,borderDash:[6,4],pointRadius:3,fill:false,datalabels:{display:false}}]},options:common})}
-function defTable(defs,dailyTotal){let h='<table><thead><tr><th>Defeito</th>';DAYS.forEach(d=>h+='<th>Dia '+d+'</th>');h+='<th>Total</th></tr></thead><tbody>';const entries=Object.entries(defs||{});entries.forEach(([c,info])=>{h+='<tr><td><strong>'+c+'</strong></td>';(info.daily||[]).forEach(v=>h+=v>0?'<td>'+fmt(v)+'</td>':'<td class="z">–</td>');h+='<td><strong>'+fmt(info.total)+'</strong></td></tr>'});h+='<tr class="rt"><td><strong>Total do Dia</strong></td>';dailyTotal.forEach(v=>h+=v>0?'<td><strong>'+fmt(v)+'</strong></td>':'<td class="z">–</td>');h+='<td><strong>'+fmt(dailyTotal.reduce((a,b)=>a+b,0))+'</strong></td></tr></tbody></table>';return {html:h,labels:entries.map(e=>e[0]),totals:entries.map(e=>e[1].total)}}
+function defTable(defs,dailyTotal,meta){let h='<table><thead><tr><th>Defeito</th>';DAYS.forEach(d=>h+='<th>Dia '+d+'</th>');h+='<th>Total</th></tr></thead><tbody>';const entries=Object.entries(defs||{});entries.forEach(([c,info])=>{h+='<tr><td><strong>'+c+'</strong></td>';(info.daily||[]).forEach(v=>h+=v>0?'<td>'+fmt(v)+'</td>':'<td class="z">–</td>');h+='<td><strong>'+fmt(info.total)+'</strong></td></tr>'});h+='<tr class="rt"><td><strong>Total do Dia</strong></td>';dailyTotal.forEach(v=>{const cls=v>meta?'meta-bad':(v>0?'meta-ok':'z');h+=v>0?'<td class="'+cls+'"><strong>'+fmt(v)+'</strong></td>':'<td class="z">–</td>'});const totG=dailyTotal.reduce((a,b)=>a+b,0);h+='<td><strong>'+fmt(totG)+'</strong></td></tr></tbody></table>';return {html:h,labels:entries.map(e=>e[0]),totals:entries.map(e=>e[1].total)}}
 function defChart(canvasId,labels,totals,color){
   kill(canvasId);
   charts[canvasId]=new Chart(document.getElementById(canvasId),{
@@ -179,7 +182,7 @@ function defChart(canvasId,labels,totals,color){
   });
 }
 
-function phaseSec(id,title,color,defs,daily,chartId){const t=defTable(defs,daily);document.getElementById(id).innerHTML='<div class="sec"><div class="sh" style="background:'+color+'">'+title+'</div><div class="pc"><div class="pt">'+t.html+'</div><div class="pch"><div class="ct">Acumulado por Defeito</div><div class="cws"><div class="chart-scroll" style="min-width:100%"><canvas id="'+chartId+'"></canvas></div></div></div></div></div>';defChart(chartId,t.labels,t.totals,color)}
+function phaseSec(id,title,color,defs,daily,chartId,meta){const t=defTable(defs,daily,meta);document.getElementById(id).innerHTML='<div class="sec"><div class="sh" style="background:'+color+'">'+title+'</div><div class="pc"><div class="pt">'+t.html+'</div><div class="pch"><div class="ct">Acumulado por Defeito</div><div class="cws"><div class="chart-scroll" style="min-width:100%"><canvas id="'+chartId+'"></canvas></div></div></div></div></div>';defChart(chartId,t.labels,t.totals,color)}
 function render(cod){
   const p=DATA[String(cod)];if(!p)return;
   const qbCru=p.qb_vrd+p.qb_seca,tuCru=p.fundido_total-qbCru,funBom=p.fun_bom,tuQma=funBom-p.qb_qq,tu=funBom-(qbCru+p.qb_qq);
@@ -192,9 +195,9 @@ function render(cod){
   barMeta('cQV',p.quebra_verde,mQV,'#c2410c','Meta ('+MQV+')');
   barMeta('cQS',p.quebra_seca,mQS,'#b45309','Meta ('+MQS+')');
   barMeta('cQQ',p.quebra_queimada,mQQ,'#b91c1c','Meta ('+MQQ+')');
-  phaseSec('secVerde','Quebra Verde — Defeito × Dia × Quantidade','#c2410c',p.defeitos_verde,p.quebra_verde,'cDefV');
-  phaseSec('secSeca','Quebra Seca — Defeito × Dia × Quantidade','#b45309',p.defeitos_seca,p.quebra_seca,'cDefS');
-  phaseSec('secQueim','Quebra Queimada — Defeito × Dia × Quantidade','#b91c1c',p.defeitos_queimada,p.quebra_queimada,'cDefQ');
+  phaseSec('secVerde','Quebra Verde — Defeito × Dia × Quantidade','#c2410c',p.defeitos_verde,p.quebra_verde,'cDefV',MQV);
+  phaseSec('secSeca','Quebra Seca — Defeito × Dia × Quantidade','#b45309',p.defeitos_seca,p.quebra_seca,'cDefS',MQS);
+  phaseSec('secQueim','Quebra Queimada — Defeito × Dia × Quantidade','#b91c1c',p.defeitos_queimada,p.quebra_queimada,'cDefQ',MQQ);
 }
 document.getElementById('pessoa').addEventListener('change',e=>render(e.target.value));
 render(document.getElementById('pessoa').value);
