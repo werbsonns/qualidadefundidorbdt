@@ -43,8 +43,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .cc{background:var(--c);border-radius:10px;box-shadow:0 1px 3px rgba(15,23,42,.06);padding:.9rem}
 .cc.full{grid-column:1/-1}
 .cc h3{font-size:.88rem;color:var(--p);margin-bottom:.55rem;font-weight:600}
-.cw{position:relative;height:230px;overflow-x:auto;-webkit-overflow-scrolling:touch}
-.cw canvas{min-width:520px!important}
+.cw{position:relative;height:240px;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.cws{position:relative;height:170px;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.chart-scroll{height:100%;min-width:100%}
 .sec{background:var(--c);border-radius:10px;box-shadow:0 1px 3px rgba(15,23,42,.06);margin-bottom:1.1rem;overflow:hidden}
 .sh{color:#fff;padding:.6rem 1rem;font-weight:600;font-size:.88rem}
 .pc{display:grid;grid-template-columns:1.45fr 1fr}
@@ -55,7 +56,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 @media(max-width:850px){.pch{border-left:none;border-top:1px solid var(--b)}}
 .ct{font-size:.78rem;font-weight:600;color:var(--p);margin-bottom:.35rem}
 .cws{position:relative;height:170px;overflow-x:auto;-webkit-overflow-scrolling:touch}
-.cws canvas{min-width:280px!important}
 table{width:100%;border-collapse:separate;border-spacing:0;font-size:.75rem}
 th,td{padding:.35rem .3rem;text-align:center;border-bottom:1px solid var(--b);white-space:nowrap;background:var(--c)}
 th{background:#f1f5f9;font-weight:600;color:var(--p)}
@@ -77,10 +77,9 @@ tr.rt td:last-child{background:#d1fae5}
 @media(max-width:600px){
   .kpi-grid{grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:.45rem}
   .kpi .v{font-size:1.05rem}
-  .cw{height:200px}
-  .cw canvas{min-width:480px!important}
-  .cws{height:160px}
-  .cws canvas{min-width:260px!important}
+  .cw{height:220px;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .cws{height:160px;width:100%}
+  .chart-scroll{min-width:620px;height:100%}
   .pt table{min-width:560px;font-size:.7rem}
   .header h1{font-size:1.15rem}
   .selector select{min-width:0;width:100%;max-width:100%}
@@ -129,13 +128,13 @@ tr.rt td:last-child{background:#d1fae5}
   <div class="kpi-grid" id="kpis"></div>
   <div class="def-row" id="defCards"></div>
   <div class="cg">
-    <div class="cc"><h3>Fundido × Meta (diário)</h3><div class="cw"><canvas id="cFund"></canvas></div></div>
-    <div class="cc"><h3>Quebras por Dia (Verde · Seca · Queimada)</h3><div class="cw"><canvas id="cQuebras"></canvas></div></div>
+    <div class="cc"><h3>Fundido × Meta (diário)</h3><div class="cw"><div class="chart-scroll"><canvas id="cFund"></canvas></div></div></div>
+    <div class="cc"><h3>Quebras por Dia (Verde · Seca · Queimada)</h3><div class="cw"><div class="chart-scroll"><canvas id="cQuebras"></canvas></div></div></div>
   </div>
   <div class="cg">
-    <div class="cc"><h3>Quebra Verde × Meta</h3><div class="cw"><canvas id="cQV"></canvas></div></div>
-    <div class="cc"><h3>Quebra Seca × Meta</h3><div class="cw"><canvas id="cQS"></canvas></div></div>
-    <div class="cc full"><h3>Quebra Queimada × Meta</h3><div class="cw"><canvas id="cQQ"></canvas></div></div>
+    <div class="cc"><h3>Quebra Verde × Meta</h3><div class="cw"><div class="chart-scroll"><canvas id="cQV"></canvas></div></div></div>
+    <div class="cc"><h3>Quebra Seca × Meta</h3><div class="cw"><div class="chart-scroll"><canvas id="cQS"></canvas></div></div></div>
+    <div class="cc full"><h3>Quebra Queimada × Meta</h3><div class="cw"><div class="chart-scroll"><canvas id="cQQ"></canvas></div></div></div>
   </div>
   <div id="secVerde"></div>
   <div id="secSeca"></div>
@@ -160,7 +159,7 @@ function kill(id){if(charts[id]){charts[id].destroy();delete charts[id]}}
 function barMeta(canvasId,data,meta,color,metaLabel){kill(canvasId);charts[canvasId]=new Chart(document.getElementById(canvasId),{type:'bar',data:{labels,datasets:[{label:'Realizado',data,backgroundColor:color,borderRadius:4},{label:metaLabel,data:meta,type:'line',borderColor:'#475569',borderWidth:2.5,borderDash:[6,4],pointRadius:3,fill:false,datalabels:{display:false}}]},options:common})}
 function defTable(defs,dailyTotal){let h='<table><thead><tr><th>Defeito</th>';DAYS.forEach(d=>h+='<th>Dia '+d+'</th>');h+='<th>Total</th></tr></thead><tbody>';const entries=Object.entries(defs||{});entries.forEach(([c,info])=>{h+='<tr><td><strong>'+c+'</strong></td>';(info.daily||[]).forEach(v=>h+=v>0?'<td>'+fmt(v)+'</td>':'<td class="z">–</td>');h+='<td><strong>'+fmt(info.total)+'</strong></td></tr>'});h+='<tr class="rt"><td><strong>Total do Dia</strong></td>';dailyTotal.forEach(v=>h+=v>0?'<td><strong>'+fmt(v)+'</strong></td>':'<td class="z">–</td>');h+='<td><strong>'+fmt(dailyTotal.reduce((a,b)=>a+b,0))+'</strong></td></tr></tbody></table>';return {html:h,labels:entries.map(e=>e[0]),totals:entries.map(e=>e[1].total)}}
 function defChart(canvasId,labels,totals,color){kill(canvasId);charts[canvasId]=new Chart(document.getElementById(canvasId),{type:'bar',data:{labels,datasets:[{data:totals,backgroundColor:color,borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},datalabels:{color:'#1a202c',font:{weight:'bold',size:11},anchor:'center',align:'center',formatter:v=>v>0?fmt(v):''}},scales:{y:{beginAtZero:true,grace:'15%'},x:{ticks:{font:{size:11,weight:'600'}}}}}});}
-function phaseSec(id,title,color,defs,daily,chartId){const t=defTable(defs,daily);document.getElementById(id).innerHTML='<div class="sec"><div class="sh" style="background:'+color+'">'+title+'</div><div class="pc"><div class="pt">'+t.html+'</div><div class="pch"><div class="ct">Acumulado por Defeito</div><div class="cws"><canvas id="'+chartId+'"></canvas></div></div></div></div>';defChart(chartId,t.labels,t.totals,color)}
+function phaseSec(id,title,color,defs,daily,chartId){const t=defTable(defs,daily);document.getElementById(id).innerHTML='<div class="sec"><div class="sh" style="background:'+color+'">'+title+'</div><div class="pc"><div class="pt">'+t.html+'</div><div class="pch"><div class="ct">Acumulado por Defeito</div><div class="cws"><div class="chart-scroll" style="min-width:100%"><canvas id="'+chartId+'"></canvas></div></div></div></div></div>';defChart(chartId,t.labels,t.totals,color)}
 function render(cod){
   const p=DATA[String(cod)];if(!p)return;
   const qbCru=p.qb_vrd+p.qb_seca,tuCru=p.fundido_total-qbCru,funBom=p.fun_bom,tuQma=funBom-p.qb_qq,tu=funBom-(qbCru+p.qb_qq);
@@ -177,8 +176,13 @@ function render(cod){
   phaseSec('secSeca','Quebra Seca — Defeito × Dia × Quantidade','#b45309',p.defeitos_seca,p.quebra_seca,'cDefS');
   phaseSec('secQueim','Quebra Queimada — Defeito × Dia × Quantidade','#b91c1c',p.defeitos_queimada,p.quebra_queimada,'cDefQ');
 }
+// Largura mínima dos gráficos = ~42px por dia (melhor no celular)
+document.querySelectorAll('.cw .chart-scroll').forEach(el=>{el.style.minWidth=Math.max(el.parentElement.clientWidth, MAX_DAY*42)+'px';});
 document.getElementById('pessoa').addEventListener('change',e=>render(e.target.value));
 render(document.getElementById('pessoa').value);
+window.addEventListener('resize',()=>{
+  document.querySelectorAll('.cw .chart-scroll').forEach(el=>{el.style.minWidth=Math.max(el.parentElement.clientWidth, MAX_DAY*42)+'px';});
+});
 </script>
 </body>
 </html>
