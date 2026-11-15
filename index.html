@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark light">
+<title>Qualidade Fundição – Painel do Operador</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;800&family=Manrope:wght@500;700&display=swap">
+<style>
+:root{--bg:#080b1f;--card:rgba(255,255,255,.045);--ink:#eef1ff;--mute:#8d96c4;--line:rgba(255,255,255,.1);--v:#5eead4;--s:#fbbf24;--q:#fb6f84;--f:#8b7bff;--m:#fff;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f3f1fb;--card:rgba(255,255,255,.75);--ink:#14163a;--mute:#5d6290;--line:rgba(20,22,58,.13);--v:#0d9488;--s:#d97706;--q:#e11d48;--f:#6d5df5;--m:#14163a;color-scheme:light}}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:500 14px/1.4 Manrope,system-ui,Arial,sans-serif}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(70% 40% at 12% 0%,color-mix(in srgb,var(--f) 45%,transparent),transparent),radial-gradient(55% 35% at 95% 12%,color-mix(in srgb,var(--v) 28%,transparent),transparent),radial-gradient(60% 30% at 50% 100%,color-mix(in srgb,var(--q) 20%,transparent),transparent)}
+header{max-width:760px;margin:0 auto;padding:24px 16px 6px}
+header small{color:var(--mute);font-size:12px}
+h1{margin:4px 0 14px;font:800 28px/1.05 Unbounded,system-ui,sans-serif}
+select{width:100%;font:inherit;padding:12px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+select option{background:var(--bg);color:var(--ink)}
+main{max-width:760px;margin:0 auto;padding:12px;display:grid;gap:14px}
+.c{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:16px;min-width:0;backdrop-filter:blur(10px)}
+h2{margin:0 0 4px;font:700 15px Manrope,sans-serif}
+.lg{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--mute);margin-bottom:8px}
+.lg i{display:inline-block;width:14px;height:6px;border-radius:3px;margin-right:6px;background:var(--cc)}
+.lg i.m{height:0;background:none;border-top:2px dashed var(--m)}
+svg{width:100%;height:auto;display:block}
+.lb{font:700 7.5px Manrope,sans-serif;fill:var(--ink)}.dy{font:600 8px Manrope,sans-serif;fill:var(--mute);text-anchor:middle}
+.meta{stroke:var(--m);stroke-width:1.6;stroke-dasharray:5 4;filter:drop-shadow(0 0 3px var(--m))}
+.big{font:800 24px Unbounded,sans-serif;fill:var(--ink)}
+.tr,.ar{fill:none;stroke-width:12}.tr{stroke:var(--line)}.ar{stroke-linecap:round;transform:rotate(-90deg);transform-origin:110px 110px}
+.hero{display:grid;grid-template-columns:minmax(130px,200px) 1fr;gap:14px;align-items:center}
+.hero ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.hero li b{display:block;font:800 22px Unbounded,sans-serif;color:var(--cc)}.hero li span,.pd span{font-size:12px;color:var(--mute)}
+.pd{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.pd b{display:block;font:800 36px/1.1 Unbounded,sans-serif;color:var(--cc)}
+.tbl{overflow-x:auto;margin:8px 0 12px}
+table{border-collapse:collapse;font-size:11px;width:max-content;min-width:100%}
+th,td{padding:5px 6px;text-align:center}
+td{background:color-mix(in srgb,var(--cc) calc(var(--i,0)*75%),transparent)}
+th:first-child{text-align:left;font-weight:700;background:none}
+.many th:first-child{position:sticky;left:0;background:var(--bg)}
+thead th{color:var(--mute);font-weight:500}td.n,tr.t td,tr.t th{font-weight:800}
+.ab{display:grid;grid-template-columns:28px 1fr 34px;gap:8px;align-items:center;margin:5px 0;font-size:12px}
+.ab i{height:10px;border-radius:6px;background:linear-gradient(90deg,transparent,var(--cc));box-shadow:0 0 12px color-mix(in srgb,var(--cc) 60%,transparent)}
+.ab em{font-style:normal;font-weight:800;text-align:right}
+svg+.nt,.nt{margin:6px 0 0;font-size:12px;color:var(--mute)}
+.sc{overflow-x:auto}.many .sc svg{min-width:560px}.few .lb,.few .dy{font-size:11px}.kg{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.kg div{text-align:center;padding:2px 0}.kg b{color:var(--cc)}.kg div:last-child{grid-column:1/-1}.kg small{display:block;color:var(--mute);font-size:10px}.kg b{display:block;font:800 18px Unbounded,sans-serif}.kg span{font-size:11px;color:var(--mute)}
+.sm{line-height:1.6}.sm b{display:block;font:800 16px Unbounded,sans-serif;margin-bottom:4px}
+summary{cursor:pointer;color:var(--mute);font-size:12px;padding:6px 0}
+.pd .nmx{display:block;font-weight:700;color:var(--ink);margin-bottom:2px}th small{display:block;font-weight:500;font-size:10px;color:var(--mute);white-space:nowrap}.ab i{display:block}.an{display:block;font-size:11px;color:var(--mute);margin-bottom:3px}.lgd{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 12px;margin-top:6px}.lgd b{display:inline-block;min-width:26px;color:var(--f)}.lgd span{font-size:12px}
+.k4{display:grid;grid-template-columns:1fr 1fr;gap:16px 12px}.k4 div{border-top:4px solid var(--cc);padding-top:8px}.k4 b{display:block;font:800 28px/1.1 Unbounded,sans-serif;color:var(--cc)}.k4 span{display:block;font-weight:700;font-size:13px;margin-top:2px}.k4 small{color:var(--mute);font-size:12px}
+.fn{margin:14px 0}.fl{display:flex;justify-content:space-between;align-items:baseline}.fl em{font:800 16px Unbounded,sans-serif}.fn i{display:block;height:12px;border-radius:7px;margin:5px 0 3px;background:linear-gradient(90deg,transparent,var(--cc));box-shadow:0 0 12px color-mix(in srgb,var(--cc) 50%,transparent)}.fn small{color:var(--q);font-size:12px}
+footer{padding:4px 16px 24px;text-align:center;font-size:12px;color:var(--mute)}
+</style></head>
+<body>
+<header><small>Qualidade · Fundição de Bacias</small><h1>Fundição de bacias<br><span id="mes"></span></h1><small id="upd" style="display:block;margin:-6px 0 12px"></small>
+<select id="op" aria-label="Escolher operador"></select></header>
+<main id="m"></main>
+<footer id="rod"></footer>
+<script>
+fetch("dados.json?v="+Date.now()).then(function(r){return r.json()}).then(function(J){
+document.getElementById("mes").textContent=J.mes;document.getElementById("upd").textContent="Atualizado em "+J.atualizado;document.getElementById("rod").textContent="Peça = bacia · Meta de fundido: "+J.meta.f+" por dia · Metas de quebra por dia: verde ≤ "+J.meta.v+" · seca ≤ "+J.meta.s+" · queimada ≤ "+J.meta.q+" peças";
+var RAW=J.ops,DAYS=J.dias,META=J.meta.f,LIM={v:J.meta.v,s:J.meta.s,q:J.meta.q},T=["v","s","q"],NM={v:"verde",s:"seca",q:"queimada"},CL={v:"--v",s:"--s",q:"--q"};var NAMES=RAW.map(function(r){return r.c+" - "+r.n}),DATA=RAW;
+function sum(a){return a.reduce(function(x,y){return x+y},0)}
+var LEG={AR:"Racho na argola",BR:"Racho base",CR:"Racho de colagem",DR:"Racho dentro",FA:"Falta de acabamento",FD:"Deformada",FF:"Furo de ar",FL:"Falta de limpeza",FO:"Outros defeitos de fundição",FR:"Racho fora",MF:"Movimentação da fundição",OR:"Racho no orifício"};function nm(c){return LEG[c]||""}
+var sel=document.getElementById("op"),M=document.getElementById("m");
+sel.innerHTML='<option value="-1">Todos os operadores</option>'+NAMES.map(function(n,i){return'<option value="'+i+'">'+n+'</option>'}).join("");
+function sum(a){return a.reduce(function(x,y){return x+y},0)}
+function add(a,b){return a.map(function(x,i){return x+b[i]})}
+function mx(a){return Math.max.apply(0,a)}
+function get(i){if(i>=0){var n=DATA[i].f.filter(function(v){return v>0}).length;return{o:DATA[i],m:META,mt:META*n}}
+var g={f:DATA[0].f.slice(),v:{},s:{},q:{}};
+for(var k=1;k<DATA.length;k++)g.f=add(g.f,DATA[k].f);
+T.forEach(function(t){Object.keys(DATA[0][t]).forEach(function(c){g[t][c]=DATA.reduce(function(a,o){return add(a,o[t][c])},DATA[0][t][c].map(function(){return 0}))})});
+var dm=g.f.map(function(_,d){return DATA.filter(function(o){return o.f[d]>0}).length*META}),mt=sum(dm),nd=dm.filter(function(v){return v>0}).length;return{o:g,m:Math.round(mt/(nd||1)),mt:mt}}
+function dayTot(o,t){return Object.keys(o[t]).reduce(function(a,c){return add(a,o[t][c])},o.f.map(function(){return 0}))}
+function fmt(x){return x.toFixed(1).replace(".",",")+"%"}
+function sm(p){var d="M"+p[0][0]+","+p[0][1];for(var i=1;i<p.length-1;i++){d+="Q"+p[i][0]+","+p[i][1]+" "+(p[i][0]+p[i+1][0])/2+","+(p[i][1]+p[i+1][1])/2}var l=p[p.length-1];return d+"L"+l[0]+","+l[1]}
+function ring(r,p,c){return'<circle cx="110" cy="110" r="'+r+'" class="tr"/><circle cx="110" cy="110" r="'+r+'" pathLength="100" class="ar" stroke="var('+c+')" stroke-dasharray="'+Math.min(p,100).toFixed(1)+' 100"/>'}
+function render(){
+var g=get(+sel.value),o=g.o,F=sum(o.f),X={},TQ=0,Z={},tbs={};
+T.forEach(function(t){X[t]=dayTot(o,t);Z[t]=sum(X[t]);TQ+=Z[t];tbs[t]=Object.keys(o[t]).map(function(c){return[c,sum(o[t][c])]}).sort(function(a,b){return b[1]-a[1]})});
+var V=Z.v,S=Z.s,Qq=Z.q,FB=F-V,CR=V+S,TC=F-CR,TQM=FB-Qq,TUq=TQM-CR,dv=function(a,b){return b?a/b*100:0};
+var pm=F/(g.mt||1)*100,ptu=dv(TUq,FB),pcr=dv(CR,F);
+var pcrm=dv(TC,F),pqq=dv(TQM,FB);
+var h='<section class="c"><div class="k4">'
++'<div style="--cc:var(--f)"><b>'+F.toLocaleString("pt-BR")+'</b><span>Fundido</span><small>'+fmt(pm)+' da meta</small></div>'
++'<div style="--cc:var(--s)"><b>'+fmt(pcrm)+'</b><span>% cru</span><small>'+TC+' peças sem quebra crua</small></div>'
++'<div style="--cc:var(--q)"><b>'+fmt(pqq)+'</b><span>% queimada</span><small>'+TQM+' peças sem quebra queimada</small></div>'
++'<div style="--cc:var(--v)"><b>'+fmt(ptu)+'</b><span>% peça boa (TU)</span><small>'+TUq+' peças boas</small></div></div></section>';
+var ik=[["Fundido","",F,"--v"],["Quebra verde","QB.VRD",V,"--q"],["Fundido bom","FUN.BOM",FB,"--v"],["Quebra seca","QB.SECA",S,"--s"],["Quebra crua","QB.CRUA",CR,"--s"],["Peça boa crua","TU.CRU",TC,"--s"],["% cru","%CRU",fmt(dv(TC,F)),"--s"],["Quebra queimada","QB.QQ",Qq,"--q"],["Peça boa após queimada","TU.QMA",TQM,"--s"],["% quebra queimada","%QB.QMA",fmt(dv(Qq,FB)),"--q"],["% queimada","%QMA",fmt(dv(TQM,FB)),"--v"],["Peça boa (TU)","TU",TUq,"--v"],["% peça boa (TU)","%TU",fmt(ptu),"--v"]];
+h+='<section class="c"><h2>Indicadores operacionais</h2><div class="lg"><span>'+(+sel.value<0?"Visão geral — todos os fundidores":NAMES[+sel.value])+'</span></div><div class="kg">'+ik.map(function(k){return'<div style="--cc:var('+k[3]+')"><b>'+(typeof k[2]=="number"?k[2].toLocaleString("pt-BR"):k[2])+'</b><span>'+k[0]+'</span>'+(k[1]?'<small>'+k[1]+'</small>':'')+'</div>'}).join("")+'</div></section>';
+h+='<section class="c pd">'+T.map(function(t){return'<div style="--cc:var('+CL[t]+')"><span>Quebra '+NM[t]+'</span><b>'+(tbs[t][0][1]?tbs[t][0][0]:"–")+'</b><span class="nmx">'+nm(tbs[t][0][0])+'</span><span>principal defeito · '+tbs[t][0][1]+' peças<br>'+Z[t]+' no total'+(F?' ('+fmt(Z[t]/F*100)+')':'')+'</span></div>'}).join("")+'</section>';
+h+='<section class="c"><details open><summary>Legenda dos defeitos</summary><div class="lgd">'+Object.keys(LEG).map(function(c){return'<div><b>'+c+'</b><span>'+LEG[c]+'</span></div>'}).join("")+'</div></details></section>';
+var bi=o.f.indexOf(mx(o.f)),wi=o.f.indexOf(Math.min.apply(0,o.f.filter(function(v){return v>0}))),nd={};
+T.forEach(function(t){nd[t]=X[t].filter(function(v){return v>LIM[t]*g.m/META}).length});
+h+='<section class="c sm"><b>'+(pm>=100?'Meta de fundido atingida ('+fmt(pm)+')':'Fundido em '+fmt(pm)+' da meta')+'</b>'+(F?'Melhor dia: '+(bi+1)+' ('+o.f[bi]+' peças). Menor dia: '+(wi+1)+' ('+o.f[wi]+' peças).':'Sem fundido neste período.')+'<br>Dias acima da meta de quebra: verde '+nd.v+', seca '+nd.s+', queimada '+nd.q+'.</section>';
+var Wd=340,H=215,pt=34,pb=18,top=Math.max(mx(o.f),g.m)*1.02,bw=Wd/DAYS,bwid=Math.min(bw*.6,26),hh=H-pt-pb;
+var s='<svg viewBox="0 0 '+Wd+' '+H+'"><defs><linearGradient id="gf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--f)"/><stop offset="1" stop-color="var(--f)" stop-opacity=".12"/></linearGradient></defs>';
+o.f.forEach(function(v,d){var bh=v/top*hh,x=d*bw+bw/2,y=H-pb-bh;s+='<rect x="'+(x-bwid/2)+'" y="'+y+'" width="'+bwid+'" height="'+bh+'" rx="3.2" fill="url(#gf)"/><text transform="translate('+(x+3)+','+(y-4)+') rotate(-90)" class="lb">'+v+'</text>'+'<text x="'+x+'" y="'+(H-4)+'" class="dy">'+(d+1)+'</text>'});
+var ym=H-pb-g.m/top*hh;
+s+='<line x1="0" x2="'+Wd+'" y1="'+ym+'" y2="'+ym+'" class="meta"/></svg>';
+h+='<section class="c"><h2>Fundido por dia</h2><div class="lg"><span><i style="--cc:var(--f)"></i>Fundido</span><span><i class="m"></i>Meta: '+g.m+'</span></div><div class="sc">'+s+'</div><p class="nt">Deslize para o lado para ver todos os dias</p></section>';
+var tot=X.v.map(function(_,d){return X.v[d]+X.s[d]+X.q[d]}),Hs=215,tm=mx(tot)*1.02,ph=Hs-pt-pb;
+s='<svg viewBox="0 0 340 '+Hs+'">';
+tot.forEach(function(tv,d){var x=d*bw+bw/2,base=0;
+T.forEach(function(t){var v=X[t][d];if(!v)return;var hg=v/tm*ph,y=Hs-pb-(base+v)/tm*ph;
+s+='<rect x="'+(x-bwid/2)+'" y="'+y+'" width="'+bwid+'" height="'+hg+'" rx="2" fill="var('+CL[t]+')"/>'+(hg>=9?'<text x="'+x+'" y="'+(y+hg/2)+'" dy=".35em" class="lb" text-anchor="middle" style="fill:var(--bg)">'+v+'</text>':'');base+=v});
+s+='<text x="'+x+'" y="'+(Hs-pb-tv/tm*ph-4)+'" class="lb" text-anchor="middle">'+tv+'</text><text x="'+x+'" y="'+(Hs-4)+'" class="dy">'+(d+1)+'</text>'});
+h+='<section class="c"><h2>Quebras por dia</h2><div class="lg">'+T.map(function(t){return'<span><i style="--cc:var('+CL[t]+')"></i>'+NM[t]+'</span>'}).join("")+'</div><div class="sc">'+s+'</svg></div><p class="nt">Número em cima da barra = total de quebras do dia · número dentro = quebras de cada tipo</p></section>';
+T.forEach(function(t){var m=LIM[t]*g.m/META,vals=X[t],tp=Math.max(mx(vals),m)*1.1;
+s='<svg viewBox="0 0 340 '+Hs+'">';
+vals.forEach(function(v,d){var x=d*bw+bw/2,bh=Math.max(v/tp*ph,1.5),y=Hs-pb-bh;
+s+='<rect x="'+(x-bwid/2)+'" y="'+y+'" width="'+bwid+'" height="'+bh+'" rx="3" fill="var('+(v>m?"--q":"--v")+')"/><text x="'+x+'" y="'+(y-4)+'" class="lb" text-anchor="middle">'+v+'</text><text x="'+x+'" y="'+(Hs-4)+'" class="dy">'+(d+1)+'</text>'});
+var ym=Hs-pb-m/tp*ph;
+s+='<line x1="0" x2="340" y1="'+ym+'" y2="'+ym+'" class="meta"/></svg>';
+h+='<section class="c"><h2>Quebra '+NM[t]+' × meta</h2><div class="lg"><span><i style="--cc:var(--v)"></i>dentro da meta</span><span><i style="--cc:var(--q)"></i>acima da meta</span><span><i class="m"></i>Meta: '+m+'</span></div><div class="sc">'+s+'</div><p class="nt">Total no mês: '+Z[t]+' peças · dias acima da meta: '+vals.filter(function(v){return v>m}).length+'</p></section>'});
+T.forEach(function(t){var cm=mx(tbs[t].map(function(r){return mx(o[t][r[0]])}))||1,am=tbs[t][0][1]||1;
+var x='<section class="c" style="--cc:var('+CL[t]+')"><h2>Quebra '+NM[t]+' · defeito por dia</h2><details open><summary>Ocultar tabela dia a dia</summary><div class="tbl"><table><thead><tr><th>Defeito</th>';
+for(var d=1;d<=DAYS;d++)x+='<th>'+d+'</th>';
+x+='<th>Total</th></tr></thead><tbody>';
+tbs[t].filter(function(r){return r[1]>0}).forEach(function(r){x+='<tr><th>'+r[0]+'<small>'+nm(r[0])+'</small></th>'+o[t][r[0]].map(function(v){return'<td style="--i:'+(v/cm).toFixed(2)+'">'+(v||"")+'</td>'}).join("")+'<td class="n">'+r[1]+'</td></tr>'});
+x+='<tr class="t"><th>Total do dia</th>'+X[t].map(function(v){return'<td>'+v+'</td>'}).join("")+'<td>'+Z[t]+'</td></tr></tbody></table></div></details><h2>Acumulado por defeito</h2>'+tbs[t].filter(function(r){return r[1]>0}).map(function(r){return'<div class="ab"><b>'+r[0]+'</b><div><span class="an">'+nm(r[0])+'</span><i style="width:'+(r[1]/am*100)+'%"></i></div><em>'+r[1]+'</em></div>'}).join("")+'</section>';
+h+=x});
+M.className=DAYS<=10?"few":"many";M.innerHTML=h}
+sel.addEventListener("change",render);
+render();
+}).catch(function(){document.getElementById("m").innerHTML='<section class="c">Não foi possível carregar os dados (arquivo dados.json).</section>'});
+</script>
+</body></html>
